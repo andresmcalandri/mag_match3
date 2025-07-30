@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36327.8 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAG_GameLibraries", "MAG_GameLibraries.csproj", "{214D9DC0-6397-4598-940C-83556A6BFCAA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{214D9DC0-6397-4598-940C-83556A6BFCAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{214D9DC0-6397-4598-940C-83556A6BFCAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{214D9DC0-6397-4598-940C-83556A6BFCAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{214D9DC0-6397-4598-940C-83556A6BFCAA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B8363F42-55E8-403B-8B76-720D64277B6D}
+	EndGlobalSection
+EndGlobal
