@@ -1,4 +1,4 @@
-namespace MAG.Results
+namespace MAG_GameLibraries.Results
 {
     public class Result
     {

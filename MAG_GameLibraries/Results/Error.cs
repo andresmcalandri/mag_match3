@@ -1,6 +1,6 @@
 using System;
 
-namespace MAG.Results
+namespace MAG_GameLibraries.Results
 {
     public readonly struct Error 
     {
