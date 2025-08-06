@@ -17,7 +17,7 @@ namespace MAG_GameLibraries.Simulation.Board
         public ITileBoard CreateBoard(ITileMatchingConfig config)
         {
             ValidateConfig(config);
-            return new DefaultTileBoard(Vector2.Zero, _tileFactory, Array.Empty<ITileType>());
+            return new DefaultTileBoard(Vector2.Zero, _tileFactory, Array.Empty<TileType>());
            
         }
 

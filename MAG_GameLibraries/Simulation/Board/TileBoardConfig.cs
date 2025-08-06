@@ -13,8 +13,8 @@ namespace MAG_GameLibraries.Simulation.Board
         /// Collection of the supported tiles to initialize and refill the board
         /// </summary>
         public Vector3 BoardSize;
-        public ITileType[]? RefillableTileTypes;
-        public ITileType[,]? StartingTiles;
+        public TileType[]? RefillableTileTypes;
+        public TileType[,]? StartingTiles;
         public Vector3 RefillDirection;
     }
 }

@@ -2,13 +2,13 @@ namespace MAG_GameLibraries.Simulation.Tile
 {
     public readonly struct Tile : ITile
     {
-        public ITileType TileType { get; }
+        public TileType Type { get; }
         public int Id { get; }
         public object? Metadata { get; }
 
-        public Tile(ITileType type, int id, object? metadata)
+        public Tile(TileType type, int id, object? metadata)
         {
-            TileType = type;
+            Type = type;
             Id = id;
             Metadata = metadata;
         }
