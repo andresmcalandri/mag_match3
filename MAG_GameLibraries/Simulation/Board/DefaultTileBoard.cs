@@ -103,29 +103,12 @@ namespace MAG_GameLibraries.Simulation.Board
             _activeTiles[pos2.x, pos2.y] = temp;
 
             /*
-            // Update tile positions
+            // TODO Update tile positions?
             if (CurrentTiles[pos1.x, pos1.y] != null)
                 CurrentTiles[pos1.x, pos1.y].Position = pos1;
             if (CurrentTiles[pos2.x, pos2.y] != null)
                 CurrentTiles[pos2.x, pos2.y].Position = pos2;
             */
-        }
-
-        private bool IsMatching(int x, int y)
-        {
-            var currentTile = _activeTiles[x, y];
-            if (currentTile == null)
-                return false;
-
-            // Check horizontal match
-            if (x >= 2 && _activeTiles[x - 1, y]?.Type == currentTile.Type && _activeTiles[x - 2, y]?.Type == currentTile.Type)
-                return true;
-
-            // Check vertical match
-            if (y >= 2 && _activeTiles[x, y - 1]?.Type == currentTile.Type && _activeTiles[x, y - 2]?.Type == currentTile.Type)
-                return true;
-
-            return false;
         }
 
         protected virtual ITile? GenerateRandomTile(Func<TileType, bool>? tileValidator = null)

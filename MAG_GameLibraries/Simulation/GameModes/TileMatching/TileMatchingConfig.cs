@@ -1,5 +1,6 @@
 using MAG_GameLibraries.Documentation;
 using MAG_GameLibraries.Simulation.Board;
+using System;
 using System.Numerics;
 
 namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
@@ -7,7 +8,7 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
     [CustomerFacing]
     public interface ITileMatchingConfig
     {
-        ITileMatchingHeuristic TileMatchingHeuristic { get; }
+        Type TileMatchingHeuristic { get; }
         TileBoardConfig BoardConfig { get; }
         int MatchingNumber { get; }
     }

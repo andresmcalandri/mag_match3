@@ -1,7 +1,10 @@
-﻿namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
+﻿using MAG_GameLibraries.Simulation.Board;
+using MAG_GameLibraries.Simulation.Tile;
+
+namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
 {
-    public interface ITileMatchingHeuristic
+    internal interface ITileMatchingHeuristic
     {
-        bool Match();
+        ITile[] Match(ITileBoard board, int x, int y, int matchingRequirement);
     }
 }

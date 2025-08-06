@@ -1,10 +1,11 @@
 using MAG_GameLibraries.Results;
 using MAG_GameLibraries.Simulation.Board;
 using MAG_GameLibraries.Simulation.Tile;
+using System;
 
 namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
 {
-    internal class BaseTileMatchingMode : IGameMode
+    internal class BaseTileMatchingMode : ITileMatchingMode
     {
         private ITileMatchingConfig _config;
         private ITileBoard _board;
@@ -21,6 +22,11 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
         {
             //_board.Initialize(_config.BoardConfig.StartingTiles);
             return Result.Success;
+        }
+
+        public ITile[] Match()
+        {
+            throw new NotImplementedException();
         }
     }
 }
