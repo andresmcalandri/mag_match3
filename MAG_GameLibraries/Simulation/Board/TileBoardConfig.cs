@@ -6,7 +6,7 @@ using UnityEngine;
 namespace MAG_GameLibraries.Simulation.Board
 {
     [CustomerFacing]
-    [CreateAssetMenu(fileName = "MAG", menuName = "Config/Tile Board Config")]
+    [CreateAssetMenu(fileName = "BoardConfig", menuName = "MAG/Tile Matching/Tile Board Config")]
     public class TileBoardConfig : ScriptableObject
     {
         /// <summary>
