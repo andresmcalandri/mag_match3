@@ -2,6 +2,7 @@
 using MAG_GameLibraries.Results;
 using MAG_GameLibraries.Simulation.Tile;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MAG_GameLibraries.Simulation.Board
@@ -10,7 +11,7 @@ namespace MAG_GameLibraries.Simulation.Board
     {
         public Vector2Int BoardSize { get; }
 
-        private ITile[,] _activeTiles;
+        private ITile?[,] _activeTiles;
         private TileType[] _supportedTiles;
         private ITileFactory _tileFactory;
 
@@ -20,6 +21,10 @@ namespace MAG_GameLibraries.Simulation.Board
             _activeTiles = new ITile[BoardSize.x, BoardSize.y];
 
             _tileFactory = tileFactory;
+
+            if (supportedTiles.Length == 0)
+                throw new ArgumentException("The supported tile list provided can't be empty", nameof(supportedTiles));
+
             _supportedTiles = supportedTiles;
         }
 
@@ -77,9 +82,19 @@ namespace MAG_GameLibraries.Simulation.Board
             return x >= 0 && x < BoardSize.x && y >= 0 && y < BoardSize.y;
         }
 
-        public void RefillBoard()
+        //TODO Could include refill strat
+        public Stack<ITile>[] RefillBoard()
         {
-            throw new System.NotImplementedException();
+            var newTiles = new Stack<ITile>[BoardSize.x];
+
+            // Drop existing tiles down and fill empty spaces
+            for (int x = 0; x < BoardSize.x; x++)
+            {
+                CompactColumn(x);
+                newTiles[x] = FillEmptySpaces(x);
+            }
+
+            return newTiles;
         }
 
         public void SetTile(int x, int y, ITile tile)
@@ -111,8 +126,16 @@ namespace MAG_GameLibraries.Simulation.Board
             */
         }
 
+        // TODO This could be a TryGen with an out instead since it can fail
         protected virtual ITile? GenerateRandomTile(Func<TileType, bool>? tileValidator = null)
         {
+            if (tileValidator == null)
+            {
+                var random = new System.Random();
+                var randomTileType = _supportedTiles[random.Next(0, _supportedTiles.Length)];
+                return _tileFactory.Create(randomTileType);
+            }
+
             var checkedTileTypes = _supportedTiles.Shuffle().ToStack();
 
             while (checkedTileTypes.Count > 0)
@@ -128,5 +151,45 @@ namespace MAG_GameLibraries.Simulation.Board
 
             return null;
         }
+
+        //TODO This could be separate for multiple refill strats. IE Refill direction
+        #region Refill Strategy
+        protected void CompactColumn(int x)
+        {
+            int writeIndex = 0;
+            for (int y = 0; y < BoardSize.y; y++)
+            {
+                if (_activeTiles[x, y] != null)
+                {
+                    if (writeIndex != y)
+                    {
+                        _activeTiles[x, writeIndex] = _activeTiles[x, y];
+                        _activeTiles[x, y] = null;
+                        //_activeTiles[x, writeIndex].Position = new Vector2Int(x, writeIndex);
+                    }
+                    writeIndex++;
+                }
+            }
+        }
+
+        protected Stack<ITile> FillEmptySpaces(int x)
+        {
+            var newTiles = new Stack<ITile>();
+            for (int y = 0; y < BoardSize.y; y++)
+            {
+                if (_activeTiles[x, y] == null)
+                {
+                    var newTile = GenerateRandomTile();
+                    if (newTile == null)
+                        throw new InvalidOperationException($"Coudln't generate new tile while refilling the board position {x}, {y}");
+
+                    _activeTiles[x, y] = newTile;
+                    newTiles.Push(newTile);
+                }
+            }
+
+            return newTiles;
+        }
+        #endregion
     }
 }
