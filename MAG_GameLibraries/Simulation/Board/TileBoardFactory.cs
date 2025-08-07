@@ -1,7 +1,7 @@
 ﻿using MAG_GameLibraries.Simulation.GameModes.TileMatching;
 using MAG_GameLibraries.Simulation.Tile;
 using System;
-using System.Numerics;
+using UnityEngine;
 
 namespace MAG_GameLibraries.Simulation.Board
 {
@@ -17,7 +17,7 @@ namespace MAG_GameLibraries.Simulation.Board
         public ITileBoard CreateBoard(ITileMatchingConfig config)
         {
             ValidateConfig(config);
-            return new DefaultTileBoard(Vector2.Zero, _tileFactory, Array.Empty<TileType>());
+            return new DefaultTileBoard(Vector2Int.zero, _tileFactory, Array.Empty<TileType>());
            
         }
 
