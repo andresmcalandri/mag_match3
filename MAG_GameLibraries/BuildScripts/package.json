@@ -1,0 +1,14 @@
+{
+  "name": "com.mag.gamelibraries",
+  "version": "0.0.1",
+  "displayName": "Your Library Name",
+  "description": "Base Game Libraries",
+  "unity": "2023.3.14",
+  "keywords": ["utility", "tools"],
+  "author": {
+    "name": "",
+    "email": ""
+  },
+  "dependencies": {},
+  "type": "library"
+}
