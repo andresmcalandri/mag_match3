@@ -7,11 +7,11 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
 {
     internal class BaseTileMatchingMode : ITileMatchingMode
     {
-        private ITileMatchingConfig _config;
+        private TileMatchingConfig _config;
         private ITileBoard _board;
         private ITileMatchingHeuristic _matchingHeuristic;
 
-        public BaseTileMatchingMode(ITileMatchingConfig config, ITileBoard board, ITileMatchingHeuristic tileMatchingHeuristic)
+        public BaseTileMatchingMode(TileMatchingConfig config, ITileBoard board, ITileMatchingHeuristic tileMatchingHeuristic)
         {
             _config = config;
             _board = board;

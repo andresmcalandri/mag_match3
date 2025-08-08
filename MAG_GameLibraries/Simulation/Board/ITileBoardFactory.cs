@@ -3,5 +3,5 @@ using MAG_GameLibraries.Simulation.GameModes.TileMatching;
 
 internal interface ITileBoardFactory
 {
-    ITileBoard CreateBoard(ITileMatchingConfig config);
+    ITileBoard CreateBoard(TileMatchingConfig config);
 }

@@ -1,6 +1,5 @@
 ﻿using MAG_GameLibraries.Documentation;
 using MAG_GameLibraries.Simulation.Tile;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MAG_GameLibraries.Simulation.Board

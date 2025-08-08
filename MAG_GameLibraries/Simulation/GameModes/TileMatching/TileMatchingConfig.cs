@@ -1,15 +1,19 @@
 using MAG_GameLibraries.Documentation;
 using MAG_GameLibraries.Simulation.Board;
 using System;
-using System.Numerics;
+using UnityEngine;
 
 namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
 {
     [CustomerFacing]
-    public interface ITileMatchingConfig
+    [CreateAssetMenu(fileName = "TileMatchingGameConfig", menuName = "MAG/Tile Matching/Game Config")]
+    public class TileMatchingConfig : ScriptableObject
     {
-        Type TileMatchingHeuristic { get; }
-        TileBoardConfig BoardConfig { get; }
-        int MatchingNumber { get; }
+        [SerializeField]
+        public Type? TileMatchingHeuristic;
+        [SerializeField]
+        public TileBoardConfig? BoardConfig;
+        [SerializeField]
+        public int MatchingNumber;
     }
 }

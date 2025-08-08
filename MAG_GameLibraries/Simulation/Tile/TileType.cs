@@ -8,9 +8,9 @@ namespace MAG_GameLibraries.Simulation.Tile
     public class TileType : ScriptableObject
     {
         [SerializeField]
-        public string Name { get; }
+        public string? Name;
 
         [SerializeField]
-        public Material Material { get; }
+        public Material? Material;
     }
 }
