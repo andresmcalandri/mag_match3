@@ -1,22 +1,19 @@
 using MAG_GameLibraries.Services;
-using Microsoft.Extensions.DependencyInjection;
 using UnityEngine;
 
 public class MAGRuntimeHolder : MonoBehaviour
 {
-    public static ServiceProvider ServiceProvider => _instance.ServiceProvider;
-
-    private static MAGRuntime _instance;
+    public static MAGRuntime Instance { get; private set; }
 
     private void Awake()
     {
-        if (_instance != null)
+        if (Instance != null)
         {
             Destroy(this.gameObject);
             return;
         }
-        
-        _instance = new MAGRuntime();
+
+        Instance = new MAGRuntime();
         DontDestroyOnLoad(gameObject);
     }
 }
