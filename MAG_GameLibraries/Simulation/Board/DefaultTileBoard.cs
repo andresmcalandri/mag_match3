@@ -34,7 +34,7 @@ namespace MAG_GameLibraries.Simulation.Board
             {
                 for (int y = 0; y < BoardSize.y; y++)
                 {
-                    var newTile = GenerateRandomTile(x, y, tileValidator) ?? throw new InvalidOperationException("Couldn't generate a valid");
+                    var newTile = GenerateRandomTile(x, y, tileValidator) ?? throw new InvalidOperationException($"Couldn't generate a valid tile for position {x}, {y}");
                     _activeTiles[x, y] = newTile;
                 }
             }
@@ -59,7 +59,7 @@ namespace MAG_GameLibraries.Simulation.Board
                 {
                     if (startingTiles[x, y] is null)
                     {
-                        var newTile = GenerateRandomTile(x, y, tileValidator) ?? throw new InvalidOperationException("Couldn't generate a valid");
+                        var newTile = GenerateRandomTile(x, y, tileValidator) ?? throw new InvalidOperationException($"Couldn't generate a valid tile for position {x}, {y}");
                         _activeTiles[x, y] = newTile;
 
                         continue;
@@ -118,13 +118,7 @@ namespace MAG_GameLibraries.Simulation.Board
             _activeTiles[pos1.x, pos1.y] = _activeTiles[pos2.x, pos2.y];
             _activeTiles[pos2.x, pos2.y] = temp;
 
-            /*
             // TODO Update tile positions?
-            if (CurrentTiles[pos1.x, pos1.y] != null)
-                CurrentTiles[pos1.x, pos1.y].Position = pos1;
-            if (CurrentTiles[pos2.x, pos2.y] != null)
-                CurrentTiles[pos2.x, pos2.y].Position = pos2;
-            */
         }
 
         // TODO This could be a TryGen with an out instead since it can fail
@@ -190,7 +184,7 @@ namespace MAG_GameLibraries.Simulation.Board
                 {
                     var newTile = GenerateRandomTile(x, y);
                     if (newTile == null)
-                        throw new InvalidOperationException($"Coudln't generate new tile while refilling the board position {x}, {y}");
+                        throw new InvalidOperationException($"Couldn't generate new tile while refilling the board position {x}, {y}");
 
                     _activeTiles[x, y] = newTile;
                     newTiles.Push(newTile);

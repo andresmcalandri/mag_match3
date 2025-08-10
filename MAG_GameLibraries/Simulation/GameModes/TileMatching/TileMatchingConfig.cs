@@ -11,6 +11,7 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
     {
         public TileMatchingHeuristicType TileMatchingHeuristic;
         public TileBoardConfig? BoardConfig;
+        [Range(2, 99)]
         public int MatchingNumber = 3;
         public bool MatchOnRefill = false;
     }

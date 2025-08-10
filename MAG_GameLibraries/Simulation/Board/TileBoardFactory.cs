@@ -1,6 +1,6 @@
-﻿using MAG_GameLibraries.Simulation.GameModes.TileMatching;
-using MAG_GameLibraries.Simulation.Tile;
+﻿using MAG_GameLibraries.Simulation.Tile;
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace MAG_GameLibraries.Simulation.Board
@@ -18,13 +18,15 @@ namespace MAG_GameLibraries.Simulation.Board
         {
             ValidateConfig(config);
             return new DefaultTileBoard(config.BoardSize, _tileFactory, config.RefillableTileTypes);
-           
         }
 
         private void ValidateConfig(TileBoardConfig config)
         {
             if (config.BoardSize == Vector2Int.zero)
-                throw new ArgumentException("Board Size needs to be greater than 0");
+                throw new ArgumentException("Board Size needs to be greater than 0", nameof(config.BoardSize));
+
+            if (config.RefillableTileTypes.GroupBy(t => t.TileId).Any(g => g.Count() > 1))
+                throw new ArgumentException("There are duplicate tile id's in the supported list", nameof(config.RefillableTileTypes));
         }
     }
 }

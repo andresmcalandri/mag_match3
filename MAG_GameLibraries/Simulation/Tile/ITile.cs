@@ -3,8 +3,8 @@ namespace MAG_GameLibraries.Simulation.Tile
 {
     public interface ITile
     {
-        int Id { get; }
-        TileType Type { get; }
+        ulong Id { get; }
+        string TileId { get; }
         object? Metadata { get; }
     }
 }

@@ -31,8 +31,7 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
 
         private bool IsStartingTileValid(TileType newTileType, Vector2Int position)
         {
-            var tileMatches = _matchingHeuristic.Match(_board, position.x, position.y, _config.MatchingNumber);
-            return tileMatches is null;
+            return !_matchingHeuristic.WouldMatch(_board, newTileType, position.x, position.y, _config.MatchingNumber);
         }
 
         public ITile?[,] GetCurrentTiles()

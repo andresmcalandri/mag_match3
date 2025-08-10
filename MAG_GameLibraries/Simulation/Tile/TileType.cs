@@ -8,7 +8,7 @@ namespace MAG_GameLibraries.Simulation.Tile
     public class TileType : ScriptableObject
     {
         // TODO With a layer of code anylisis we could source generate enums from another config file
-        public string Name = "";
+        public string TileId = "";
 
         public ScriptableObject? Metadata;
     }
