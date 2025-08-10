@@ -1,20 +1,26 @@
 using MAG_GameLibraries.Simulation.GameModes;
+using MAG_GameLibraries.Simulation.Tile;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MAG_GameLibraries.Results
 {
-    public class GameModeResult : Result
+    public readonly struct GameModeResult : IResult
     {
-        // TODO Not compiling due to standard 2.1 ??
-        //[MemberNotNullWhen(false, nameof(HasError))]
+        [MemberNotNullWhen(false, "HasError")]
         public IGameMode? GameMode { get; }
 
-        public GameModeResult (IGameMode gameMode) : base()
+        public Error? Error { get; }
+        public bool HasError => Error != null;
+
+        public GameModeResult (IGameMode gameMode)
         {
             GameMode = gameMode;
+            Error = null;
         }
 
-        public GameModeResult(Error error) : base(error) 
+        public GameModeResult(Error error)
         {
+            Error = error;
             GameMode = null;
         }
     }

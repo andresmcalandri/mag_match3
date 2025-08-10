@@ -4,6 +4,8 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
 {
     public interface ITileMatchingMode : IGameMode
     {
-        ITile[] Match();
+        ITile?[,] GetCurrentTiles();
+        MatchingResult Match();
+        MatchingResult Match(int x, int y);
     }
 }

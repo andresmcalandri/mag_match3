@@ -10,9 +10,10 @@ namespace MAG_GameLibraries.Simulation.Board
     {
         Vector2Int BoardSize { get; }
 
-        Result Initialize(Func<TileType, bool>? tileValidator = null);
-        Result Initialize(TileType[,] startingTiles, Func<TileType, bool>? tileValidator = null);
+        Result Initialize(Func<TileType, Vector2Int, bool>? tileValidator = null);
+        Result Initialize(TileType[,] startingTiles, Func<TileType, Vector2Int, bool>? tileValidator = null);
         bool IsValidPosition(int x, int y);
+        ITile?[,] GetAllTiles();
         ITile? GetTile(int x, int y);
         void SetTile(int x, int y, ITile tile);
         void SwapTiles(Vector2Int pos1, Vector2Int pos2);

@@ -45,7 +45,6 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
                 horizontalMatches.Add(comparingTile);
             }
 
-
             // Check vertical matches
             var verticalMatches = new List<ITile>();
 

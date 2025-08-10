@@ -11,9 +11,9 @@ namespace MAG_GameLibraries.Simulation.Board
     {
         public Vector2Int BoardSize { get; }
 
-        private ITile?[,] _activeTiles;
-        private TileType[] _supportedTiles;
-        private ITileFactory _tileFactory;
+        private readonly ITile?[,] _activeTiles;
+        private readonly TileType[] _supportedTiles;
+        private readonly ITileFactory _tileFactory;
 
         internal DefaultTileBoard(Vector2Int boardSize, ITileFactory tileFactory, TileType[] supportedTiles)
         {
@@ -28,13 +28,13 @@ namespace MAG_GameLibraries.Simulation.Board
             _supportedTiles = supportedTiles;
         }
 
-        public Result Initialize(Func<TileType, bool>? tileValidator = null)
+        public Result Initialize(Func<TileType, Vector2Int, bool>? tileValidator = null)
         {
             for (int x = 0; x < BoardSize.x; x++)
             {
                 for (int y = 0; y < BoardSize.y; y++)
                 {
-                    var newTile = GenerateRandomTile(tileValidator) ?? throw new InvalidOperationException("Couldn't generate a valid");
+                    var newTile = GenerateRandomTile(x, y, tileValidator) ?? throw new InvalidOperationException("Couldn't generate a valid");
                     _activeTiles[x, y] = newTile;
                 }
             }
@@ -42,7 +42,7 @@ namespace MAG_GameLibraries.Simulation.Board
             return Result.Success;
         }
 
-        public Result Initialize(TileType[,] startingTiles, Func<TileType, bool>? tileValidator = null)
+        public Result Initialize(TileType[,] startingTiles, Func<TileType, Vector2Int, bool>? tileValidator = null)
         {
             var width = startingTiles.GetLength(0);
             var height = startingTiles.GetLength(1);
@@ -59,7 +59,7 @@ namespace MAG_GameLibraries.Simulation.Board
                 {
                     if (startingTiles[x, y] is null)
                     {
-                        var newTile = GenerateRandomTile(tileValidator) ?? throw new InvalidOperationException("Couldn't generate a valid");
+                        var newTile = GenerateRandomTile(x, y, tileValidator) ?? throw new InvalidOperationException("Couldn't generate a valid");
                         _activeTiles[x, y] = newTile;
 
                         continue;
@@ -127,7 +127,7 @@ namespace MAG_GameLibraries.Simulation.Board
         }
 
         // TODO This could be a TryGen with an out instead since it can fail
-        protected virtual ITile? GenerateRandomTile(Func<TileType, bool>? tileValidator = null)
+        protected virtual ITile? GenerateRandomTile(int x, int y, Func<TileType, Vector2Int, bool>? tileValidator = null)
         {
             if (tileValidator == null)
             {
@@ -143,13 +143,18 @@ namespace MAG_GameLibraries.Simulation.Board
                 var newTileType = checkedTileTypes.Pop();
 
                 // If the tile is not valid we continue
-                if (!tileValidator?.Invoke(newTileType) ?? false)
+                if (!tileValidator?.Invoke(newTileType, new Vector2Int(x, y)) ?? false)
                     continue;
 
                 return _tileFactory.Create(newTileType); // TODO Add position to tile?
             }
 
             return null;
+        }
+
+        public ITile?[,] GetAllTiles()
+        {
+            return (ITile?[,])_activeTiles.Clone();
         }
 
         //TODO This could be separate for multiple refill strats. IE Refill direction
@@ -179,7 +184,7 @@ namespace MAG_GameLibraries.Simulation.Board
             {
                 if (_activeTiles[x, y] == null)
                 {
-                    var newTile = GenerateRandomTile();
+                    var newTile = GenerateRandomTile(x, y);
                     if (newTile == null)
                         throw new InvalidOperationException($"Coudln't generate new tile while refilling the board position {x}, {y}");
 
@@ -190,6 +195,7 @@ namespace MAG_GameLibraries.Simulation.Board
 
             return newTiles;
         }
+
         #endregion
     }
 }
