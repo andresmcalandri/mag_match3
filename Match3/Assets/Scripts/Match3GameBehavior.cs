@@ -1,4 +1,6 @@
 using MAG_GameLibraries.Simulation.GameModes.TileMatching;
+using MAG_GameLibraries.Simulation.Tile;
+using System;
 using UnityEngine;
 
 public class Match3GameBehavior : MonoBehaviour
@@ -7,7 +9,7 @@ public class Match3GameBehavior : MonoBehaviour
     private TileMatchingConfig _tileMatchingConfig;
 
     [SerializeField]
-    private Transform _boardContainer;
+    private BoardView _boardView;
 
     [SerializeField]
     private TileView _tilePrefab;
@@ -57,21 +59,23 @@ public class Match3GameBehavior : MonoBehaviour
     private void InitializeView()
     {
         var tiles = _gameMode.GetCurrentTiles();
+        _boardView.Initialize(tiles, _tilePrefab, TileClicked);
+    }
 
-        for (int x = 0; x < _tileMatchingConfig.BoardConfig.BoardSize.x; x++)
+    private void TileClicked(Vector2Int clickedTilePosition)
+    {
+        var result = _gameMode.Match(clickedTilePosition.x, clickedTilePosition.y);
+        if (result.HasError)
         {
-            for (int y = 0; y < _tileMatchingConfig.BoardConfig.BoardSize.y; y++)
-            {
-                var tile = tiles[x, y];
-
-                //TODO Should probably show an empty Tile model?
-                if (tile is null)
-                    continue;
-
-                var newTile = Instantiate(_tilePrefab, _boardContainer);
-                newTile.Initialize(tile.Metadata);
-                newTile.transform.localPosition = new Vector3(x, y, 0);
-            }
+            Debug.LogError(result.Error);
+            return;
         }
+
+        HandleMatchResult(result);
+    }
+
+    private void HandleMatchResult(MatchingResult matchedTiles)
+    {
+        _boardView.PopTiles(matchedTiles.MatchedTiles);
     }
 }

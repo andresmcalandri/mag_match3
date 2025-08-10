@@ -27,6 +27,10 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
             if (verticalMatches.Count >= matchingRequirement - 1)
                 matches.AddRange(verticalMatches);
 
+            // If there were matches we finally add the current tile
+            if(matches.Any())
+                matches.Add(currentTile);
+            
             return matches.ToArray();
         }
 

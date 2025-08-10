@@ -65,7 +65,7 @@ namespace MAG_GameLibraries.Simulation.Board
                         continue;
                     }
 
-                    _activeTiles[x, y] = _tileFactory.Create(startingTiles[x, y]);
+                    _activeTiles[x, y] = _tileFactory.Create(startingTiles[x, y], new Vector2Int(x, y));
                 }
             }
 
@@ -127,11 +127,12 @@ namespace MAG_GameLibraries.Simulation.Board
             if(_supportedTiles.Length == 0)
                 return null;
 
+            var position = new Vector2Int(x, y);
             if (tileValidator == null)
             {
                 var random = new System.Random();
                 var randomTileType = _supportedTiles[random.Next(0, _supportedTiles.Length)];
-                return _tileFactory.Create(randomTileType);
+                return _tileFactory.Create(randomTileType, position);
             }
 
             var checkedTileTypes = _supportedTiles.Shuffle().ToStack();
@@ -141,10 +142,10 @@ namespace MAG_GameLibraries.Simulation.Board
                 var newTileType = checkedTileTypes.Pop();
 
                 // If the tile is not valid we continue
-                if (!tileValidator?.Invoke(newTileType, new Vector2Int(x, y)) ?? false)
+                if (!tileValidator?.Invoke(newTileType, position) ?? false)
                     continue;
 
-                return _tileFactory.Create(newTileType); // TODO Add position to tile?
+                return _tileFactory.Create(newTileType, position);
             }
 
             return null;

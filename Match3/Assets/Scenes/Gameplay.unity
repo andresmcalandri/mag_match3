@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tileMatchingConfig: {fileID: 11400000, guid: f50a26869a62afb489383a817d0760a8, type: 2}
-  _boardContainer: {fileID: 2038321347}
+  _boardView: {fileID: 2038321348}
   _tilePrefab: {fileID: 5389114776606618627, guid: 79176e51de9252642a87a181e855d83d, type: 3}
 --- !u!4 &1840627639
 Transform:
@@ -236,6 +236,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2038321347}
+  - component: {fileID: 2038321348}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -258,6 +259,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2038321348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038321346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97569eb16dab64048b0d61f54de1f852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2136382565
 GameObject:
   m_ObjectHideFlags: 0
