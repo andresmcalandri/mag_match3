@@ -1,4 +1,5 @@
-﻿using MAG_GameLibraries.Simulation.Board;
+﻿using MAG_GameLibraries.Results;
+using MAG_GameLibraries.Simulation.Board;
 using MAG_GameLibraries.Simulation.GameModes;
 using MAG_GameLibraries.Simulation.GameModes.TileMatching;
 using MAG_GameLibraries.Simulation.Tile;
@@ -20,6 +21,15 @@ namespace MAG_GameLibraries.Services
                 .AddSingleton<IGameModeFactory, GameModeFactory>();
 
             ServiceProvider = serviceCollection.BuildServiceProvider();
+        }
+
+        public GameModeResult GetGameMode(IGameConfig gameConfig)
+        {
+            var gameModeFactory = this.ServiceProvider.GetService<IGameModeFactory>();
+            if (gameModeFactory is null)
+                throw new System.Exception($"Could't find {nameof(IGameModeFactory)} factory");
+
+            return gameModeFactory.Create(gameConfig);
         }
     }
 }
