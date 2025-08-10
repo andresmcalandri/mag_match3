@@ -76,8 +76,8 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
 
         protected RefillResult RefillBoard()
         {
-            var refilledTiles = _board.RefillBoard();
-            return new RefillResult(refilledTiles, _config.MatchOnRefill ? Match() : null);
+            var result = _board.RefillBoard();
+            return new RefillResult(result.newTiles, result.CompactedTiles, _config.MatchOnRefill ? Match() : null);
         }
     }
 }

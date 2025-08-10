@@ -73,7 +73,7 @@ namespace MAG_GameLibraries.Simulation.Board
         }
 
         public ITile? GetTile(int x, int y)
-        { 
+        {
             return _activeTiles[x, y];
         }
 
@@ -83,19 +83,20 @@ namespace MAG_GameLibraries.Simulation.Board
         }
 
         //TODO Could include refill strat with limits and such
-        public Stack<ITile>[] RefillBoard()
+        public (Stack<ITile>[] newTiles, Queue<ITile>[] CompactedTiles) RefillBoard()
         {
             var newTiles = new Stack<ITile>[BoardSize.x];
+            var compactedTiles = new Queue<ITile>[BoardSize.x];
 
             // Drop existing tiles down and fill empty spaces
             for (int x = 0; x < BoardSize.x; x++)
             {
-                CompactColumn(x);
+                compactedTiles[x] = CompactColumn(x);
                 if(_supportedTiles.Length > 0)
                     newTiles[x] = FillEmptySpaces(x);
             }
 
-            return newTiles;
+            return (newTiles, compactedTiles);
         }
 
         public void SetTile(int x, int y, ITile tile)
@@ -158,8 +159,9 @@ namespace MAG_GameLibraries.Simulation.Board
 
         //TODO This could be separate for multiple refill strats. IE Refill direction
         #region Refill Strategy
-        protected void CompactColumn(int x)
+        protected Queue<ITile> CompactColumn(int x)
         {
+            var compactedTiles = new Queue<ITile>();
             int writeIndex = 0;
             for (int y = 0; y < BoardSize.y; y++)
             {
@@ -168,12 +170,16 @@ namespace MAG_GameLibraries.Simulation.Board
                     if (writeIndex != y)
                     {
                         _activeTiles[x, writeIndex] = _activeTiles[x, y];
+                        _activeTiles[x, writeIndex]!.Position = new Vector2Int(x, writeIndex);
+                        compactedTiles.Enqueue(_activeTiles[x, writeIndex]!);
                         _activeTiles[x, y] = null;
-                        //_activeTiles[x, writeIndex].Position = new Vector2Int(x, writeIndex);
                     }
+
                     writeIndex++;
                 }
             }
+
+            return compactedTiles;
         }
 
         protected Stack<ITile> FillEmptySpaces(int x)

@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace MAG_GameLibraries.Simulation.Tile
 {
-    public readonly struct Tile : ITile
+    public struct Tile : ITile
     {
         public string TileId { get; }
         public ulong Id { get; }
-        public Vector2Int Position { get; }
+        public Vector2Int Position { get; set; }
 
         public object? Metadata { get; }
 

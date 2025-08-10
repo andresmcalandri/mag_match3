@@ -9,13 +9,16 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
     {
         [MemberNotNullWhen(false, "HasError")]
         public Stack<ITile>[]? RefilledTiles { get; }
+        [MemberNotNullWhen(false, "HasError")]
+        public Queue<ITile>[]? CompactedTiles { get; }
         public MatchingResult? MatchingResult { get; }
         public Error? Error { get; }
         public bool HasError => Error != null;
 
-        public RefillResult(Stack<ITile>[] refilledTiles, MatchingResult? matchingResult = null)
+        public RefillResult(Stack<ITile>[] refilledTiles, Queue<ITile>[] compactedTiles, MatchingResult? matchingResult = null)
         {
             RefilledTiles = refilledTiles;
+            CompactedTiles = compactedTiles;
             MatchingResult = matchingResult;
             Error = null;
         }
@@ -23,6 +26,7 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
         public RefillResult(Error error)
         {
             RefilledTiles = null;
+            CompactedTiles = null;
             MatchingResult = null;
             Error = error;
         }

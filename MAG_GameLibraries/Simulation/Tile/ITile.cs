@@ -9,7 +9,7 @@ namespace MAG_GameLibraries.Simulation.Tile
     {
         ulong Id { get; }
         string TileId { get; }
-        Vector2Int Position { get; }
+        Vector2Int Position { get; set; }
         object? Metadata { get; }
     }
 }

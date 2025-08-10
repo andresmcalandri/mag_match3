@@ -17,6 +17,6 @@ namespace MAG_GameLibraries.Simulation.Board
         ITile? GetTile(int x, int y);
         void SetTile(int x, int y, ITile tile);
         void SwapTiles(Vector2Int pos1, Vector2Int pos2);
-        Stack<ITile>[] RefillBoard();
+        (Stack<ITile>[] newTiles, Queue<ITile>[] CompactedTiles) RefillBoard();
     }
 }
