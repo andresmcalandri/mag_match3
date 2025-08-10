@@ -14,5 +14,6 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
         [Range(2, 99)]
         public int MatchingNumber = 3;
         public bool MatchOnRefill = false;
+        public bool NoMatchesOnInit = false;
     }
 }

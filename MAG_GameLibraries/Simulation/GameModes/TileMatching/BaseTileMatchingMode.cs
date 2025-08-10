@@ -1,6 +1,7 @@
 using MAG_GameLibraries.Results;
 using MAG_GameLibraries.Simulation.Board;
 using MAG_GameLibraries.Simulation.Tile;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,9 +9,9 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
 {
     internal class BaseTileMatchingMode : ITileMatchingMode
     {
-        private readonly TileMatchingConfig _config;
-        private readonly ITileBoard _board;
-        private readonly ITileMatchingHeuristic _matchingHeuristic;
+        protected readonly TileMatchingConfig _config;
+        protected readonly ITileBoard _board;
+        protected readonly ITileMatchingHeuristic _matchingHeuristic;
 
         public BaseTileMatchingMode(TileMatchingConfig config, ITileBoard board, ITileMatchingHeuristic tileMatchingHeuristic)
         {
@@ -19,19 +20,14 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
             _matchingHeuristic = tileMatchingHeuristic;
         }
 
-        public Result Initialize()
+        public virtual Result Initialize()
         {
             if (_config.BoardConfig!.StartingTiles is not null)
-                _board.Initialize(_config.BoardConfig.StartingTiles, IsStartingTileValid);
+                _board.Initialize(_config.BoardConfig.StartingTiles, _config.NoMatchesOnInit ? IsStartingTileValid : null);
             else
-                _board.Initialize(IsStartingTileValid);
-            
-            return Result.Success;
-        }
+                _board.Initialize(_config.NoMatchesOnInit ? IsStartingTileValid : null);
 
-        private bool IsStartingTileValid(TileType newTileType, Vector2Int position)
-        {
-            return !_matchingHeuristic.WouldMatch(_board, newTileType, position.x, position.y, _config.MatchingNumber);
+            return Result.Success;
         }
 
         public ITile?[,] GetCurrentTiles()
@@ -62,14 +58,24 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
         public MatchingResult Match(int x, int y)
         {
             var matchedTiles = _matchingHeuristic.Match(_board, x, y, _config.MatchingNumber);
-            if(matchedTiles is null)
+            if (matchedTiles is null)
                 return new MatchingResult();
-            
+
             return new MatchingResult(matchedTiles, RefillBoard());
         }
 
-        private RefillResult RefillBoard()
-        { 
+        public MatchingResult SwapTiles(Vector2Int pos1, Vector2Int pos2)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected bool IsStartingTileValid(TileType newTileType, Vector2Int position)
+        {
+            return !_matchingHeuristic.WouldMatch(_board, newTileType, position.x, position.y, _config.MatchingNumber);
+        }
+
+        protected RefillResult RefillBoard()
+        {
             var refilledTiles = _board.RefillBoard();
             return new RefillResult(refilledTiles, _config.MatchOnRefill ? Match() : null);
         }
