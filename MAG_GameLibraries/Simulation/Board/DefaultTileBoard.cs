@@ -82,7 +82,7 @@ namespace MAG_GameLibraries.Simulation.Board
             return x >= 0 && x < BoardSize.x && y >= 0 && y < BoardSize.y;
         }
 
-        //TODO Could include refill strat
+        //TODO Could include refill strat with limits and such
         public Stack<ITile>[] RefillBoard()
         {
             var newTiles = new Stack<ITile>[BoardSize.x];
@@ -91,7 +91,8 @@ namespace MAG_GameLibraries.Simulation.Board
             for (int x = 0; x < BoardSize.x; x++)
             {
                 CompactColumn(x);
-                newTiles[x] = FillEmptySpaces(x);
+                if(_supportedTiles.Length > 0)
+                    newTiles[x] = FillEmptySpaces(x);
             }
 
             return newTiles;
@@ -129,6 +130,9 @@ namespace MAG_GameLibraries.Simulation.Board
         // TODO This could be a TryGen with an out instead since it can fail
         protected virtual ITile? GenerateRandomTile(int x, int y, Func<TileType, Vector2Int, bool>? tileValidator = null)
         {
+            if(_supportedTiles.Length == 0)
+                return null;
+
             if (tileValidator == null)
             {
                 var random = new System.Random();

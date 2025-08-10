@@ -12,9 +12,10 @@ namespace MAG_GameLibraries.Simulation.Board
         /// <summary>
         /// Collection of the supported tiles to initialize and refill the board
         /// </summary>
-        public Vector3 BoardSize;
+        public Vector2Int BoardSize;
         public TileType[] RefillableTileTypes = Array.Empty<TileType>();
         public TileType[,]? StartingTiles;
-        public Vector3 RefillDirection;
+        // TODO Would be cool to implement this
+        //public Vector3 RefillDirection;
     }
 }

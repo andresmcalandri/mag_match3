@@ -17,13 +17,14 @@ namespace MAG_GameLibraries.Simulation.Board
         public ITileBoard CreateBoard(TileBoardConfig config)
         {
             ValidateConfig(config);
-            return new DefaultTileBoard(Vector2Int.zero, _tileFactory, Array.Empty<TileType>());
+            return new DefaultTileBoard(config.BoardSize, _tileFactory, config.RefillableTileTypes);
            
         }
 
         private void ValidateConfig(TileBoardConfig config)
         {
-           throw new NotImplementedException();
+            if (config.BoardSize == Vector2Int.zero)
+                throw new ArgumentException("Board Size needs to be greater than 0");
         }
     }
 }
