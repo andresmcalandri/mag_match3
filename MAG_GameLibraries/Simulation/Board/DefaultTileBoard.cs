@@ -15,8 +15,8 @@ namespace MAG_GameLibraries.Simulation.Board
         private TileType[] _supportedTiles;
         private ITileFactory _tileFactory;
 
-        internal DefaultTileBoard(Vector2Int boardSize, ITileFactory tileFactory, TileType[] supportedTiles) 
-        { 
+        internal DefaultTileBoard(Vector2Int boardSize, ITileFactory tileFactory, TileType[] supportedTiles)
+        {
             BoardSize = boardSize;
             _activeTiles = new ITile[BoardSize.x, BoardSize.y];
 
@@ -47,7 +47,7 @@ namespace MAG_GameLibraries.Simulation.Board
             var width = startingTiles.GetLength(0);
             var height = startingTiles.GetLength(1);
 
-            if (width > BoardSize.x) 
+            if (width > BoardSize.x)
                 throw new ArgumentException("The Starting tile set width is longer than the board configuration", nameof(startingTiles));
 
             if (height > BoardSize.y)
@@ -72,8 +72,8 @@ namespace MAG_GameLibraries.Simulation.Board
             return Result.Success;
         }
 
-        public ITile GetTile(int x, int y)
-        {
+        public ITile? GetTile(int x, int y)
+        { 
             return _activeTiles[x, y];
         }
 

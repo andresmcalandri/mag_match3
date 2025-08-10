@@ -7,10 +7,9 @@ namespace MAG_GameLibraries.Simulation.Tile
     [CreateAssetMenu(fileName = "TileType", menuName = "MAG/Tile Matching/Tile Type")]
     public class TileType : ScriptableObject
     {
-        [SerializeField]
-        public string? Name;
+        // TODO With a layer of code anylisis we could source generate enums from another config file
+        public string Name = "";
 
-        [SerializeField]
-        public Material? Material;
+        public ScriptableObject? Metadata;
     }
 }

@@ -7,13 +7,11 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
 {
     [CustomerFacing]
     [CreateAssetMenu(fileName = "TileMatchingGameConfig", menuName = "MAG/Tile Matching/Game Config")]
-    public class TileMatchingConfig : ScriptableObject
+    public class TileMatchingConfig : ScriptableObject, IGameConfig
     {
-        [SerializeField]
-        public Type? TileMatchingHeuristic;
-        [SerializeField]
+        public TileMatchingHeuristicType TileMatchingHeuristic;
         public TileBoardConfig? BoardConfig;
-        [SerializeField]
-        public int MatchingNumber;
+        public int MatchingNumber = 3;
+        public bool MatchOnRefill = false;
     }
 }

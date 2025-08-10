@@ -2,10 +2,10 @@
 
 namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
 {
-    public class MatchResult : Result
+    public class MatchingResult : Result
     {
         //TODO do we need this?
-        public MatchResult() 
+        public MatchingResult() 
         { 
         }
     }

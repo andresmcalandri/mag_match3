@@ -4,6 +4,6 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
 {
     internal interface ITileMatchingHeuristicFactory
     {
-        ITileMatchingHeuristic Create(Type tileMatchingHeuristicType);
+        ITileMatchingHeuristic Create(TileMatchingHeuristicType tileMatchingHeuristicType);
     }
 }

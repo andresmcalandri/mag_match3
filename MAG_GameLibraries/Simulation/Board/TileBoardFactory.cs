@@ -14,14 +14,14 @@ namespace MAG_GameLibraries.Simulation.Board
             _tileFactory = tileFactory ?? throw new ArgumentNullException(nameof(tileFactory));
         }
 
-        public ITileBoard CreateBoard(TileMatchingConfig config)
+        public ITileBoard CreateBoard(TileBoardConfig config)
         {
             ValidateConfig(config);
             return new DefaultTileBoard(Vector2Int.zero, _tileFactory, Array.Empty<TileType>());
            
         }
 
-        private void ValidateConfig(TileMatchingConfig config)
+        private void ValidateConfig(TileBoardConfig config)
         {
            throw new NotImplementedException();
         }

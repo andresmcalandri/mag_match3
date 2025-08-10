@@ -25,7 +25,7 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
                     break;
 
                 var comparingTile = board.GetTile(currentX, y);
-                if (comparingTile.Type != currentTile.Type)
+                if (comparingTile?.Type != currentTile.Type)
                     break;
 
                 horizontalMatches.Add(comparingTile);
@@ -39,7 +39,7 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
                     break;
 
                 var comparingTile = board.GetTile(currentX, y);
-                if (comparingTile.Type != currentTile.Type)
+                if (comparingTile?.Type != currentTile.Type)
                     break;
 
                 horizontalMatches.Add(comparingTile);
@@ -57,7 +57,7 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
                     break;
 
                 var comparingTile = board.GetTile(x, currentY);
-                if (comparingTile.Type != currentTile.Type)
+                if (comparingTile?.Type != currentTile.Type)
                     break;
 
                 verticalMatches.Add(comparingTile);
@@ -71,7 +71,7 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
                     break;
 
                 var comparingTile = board.GetTile(x, currentY);
-                if (comparingTile.Type != currentTile.Type)
+                if (comparingTile?.Type != currentTile.Type)
                     break;
 
                 verticalMatches.Add(comparingTile);
