@@ -157,6 +157,17 @@ namespace MAG_GameLibraries.Simulation.Board
             return (ITile?[,])_activeTiles.Clone();
         }
 
+        public void RemoveTiles(ITile[] matchedTiles)
+        {
+            foreach (var tile in matchedTiles)
+            {
+                if (tile is null)
+                    continue;
+
+                _activeTiles[tile.Position.x, tile.Position.y] = null;
+            }
+        }
+
         //TODO This could be separate for multiple refill strats. IE Refill direction
         #region Refill Strategy
         protected Queue<ITile> CompactColumn(int x)

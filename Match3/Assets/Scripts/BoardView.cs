@@ -40,8 +40,7 @@ public class BoardView : MonoBehaviour
                     continue;
 
                 var newTile = GetOrCreateTile(tilePrefab);
-                newTile.Initialize(position, tile.Metadata);
-                newTile.transform.localPosition = new Vector3(x, y, 0);
+                newTile.Initialize(position, tile.Id, tile.Metadata);
                 _activeTiles[x, y] = newTile;
                 newTile.OnTileClicked += OnTileClicked;
             }
@@ -57,6 +56,30 @@ public class BoardView : MonoBehaviour
         }
     }
 
+    public void UpdateTilePositionsPerRow(Queue<ITile>[] compactedTiles)
+    {
+        for (int x = 0; x < compactedTiles.Length; x++)
+        {
+            var compactedTilesInColumn = compactedTiles[x];
+            while (compactedTilesInColumn.TryDequeue(out var tile))
+            {
+                for (int y = 0; y < _activeTiles.GetLength(1); y++)
+                {
+                    var activeTile = _activeTiles[x, y];
+
+                    if (activeTile == null || activeTile.Id != tile.Id)
+                        continue;
+
+                    activeTile.SetTilePosition(new Vector2Int(tile.Position.x, tile.Position.y));
+                    _activeTiles[tile.Position.x, tile.Position.y] = activeTile;
+                    _activeTiles[x, y] = null;
+
+                    break;
+                }
+            }
+        }
+    }
+
     private void OnTileClicked(Vector2Int tilePosition)
     {
         _onTileClicked?.Invoke(tilePosition);
@@ -64,12 +87,17 @@ public class BoardView : MonoBehaviour
 
     private void RecycleTile(Vector2Int position)
     {
-        var activeTile = _activeTiles[position.x, position.y];
+        RecycleTile(position.x, position.y);
+    }
+
+    private void RecycleTile(int x, int y)
+    {
+        var activeTile = _activeTiles[x, y];
         if (activeTile != null)
         {
             activeTile.gameObject.SetActive(false);
             _unusedTiles.Push(activeTile);
-            _activeTiles[position.x, position.y] = null;
+            _activeTiles[x, y] = null;
         }
     }
 
@@ -84,4 +112,6 @@ public class BoardView : MonoBehaviour
         var newTile = Instantiate(tilePrefab, transform);
         return newTile;
     }
+
+    
 }

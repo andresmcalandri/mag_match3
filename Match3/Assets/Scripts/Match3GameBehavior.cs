@@ -33,7 +33,7 @@ public class Match3GameBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void InitializeGame()
@@ -65,17 +65,32 @@ public class Match3GameBehavior : MonoBehaviour
     private void TileClicked(Vector2Int clickedTilePosition)
     {
         var result = _gameMode.Match(clickedTilePosition.x, clickedTilePosition.y);
-        if (result.HasError)
-        {
-            Debug.LogError(result.Error);
-            return;
-        }
 
         HandleMatchResult(result);
     }
 
-    private void HandleMatchResult(MatchingResult matchedTiles)
+    private void HandleMatchResult(MatchingResult matchingResult)
     {
-        _boardView.PopTiles(matchedTiles.MatchedTiles);
+        if (matchingResult.HasError)
+        {
+            Debug.LogError(matchingResult.Error);
+            return;
+        }
+
+        _boardView.PopTiles(matchingResult.MatchedTiles);
+        
+        if(matchingResult.RefillResult is not null)
+            HandleRefillResult(matchingResult.RefillResult);
+    }
+
+    private void HandleRefillResult(RefillResult refillResult)
+    {
+        if (refillResult.HasError)
+        {
+            Debug.LogError(refillResult.Error);
+            return;
+        }
+
+        _boardView.UpdateTilePositionsPerRow(refillResult.CompactedTiles);
     }
 }

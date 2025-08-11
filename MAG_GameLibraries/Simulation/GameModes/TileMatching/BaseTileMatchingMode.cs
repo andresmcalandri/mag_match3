@@ -61,6 +61,8 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
             if (matchedTiles is null)
                 return new MatchingResult();
 
+
+            _board.RemoveTiles(matchedTiles);
             return new MatchingResult(matchedTiles, RefillBoard());
         }
 
@@ -76,8 +78,8 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
 
         protected RefillResult RefillBoard()
         {
-            var result = _board.RefillBoard();
-            return new RefillResult(result.newTiles, result.CompactedTiles, _config.MatchOnRefill ? Match() : null);
+            var (newTiles, compactedTiles) = _board.RefillBoard();
+            return new RefillResult(newTiles, compactedTiles, _config.MatchOnRefill ? Match() : null);
         }
     }
 }
