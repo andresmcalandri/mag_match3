@@ -11,6 +11,9 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
                 case TileMatchingHeuristicType.Default:
                     return new DefaultTileMatchingHeuristic();
 
+                case TileMatchingHeuristicType.AnyContiguous:
+                    return new AnyContiguousTileMatchingHeuristic();
+
                 default:
                     throw new ArgumentException($"Unsuported Tile Matching Heuristic {tileMatchingHeuristicType}", nameof(tileMatchingHeuristicType));
             }

@@ -47,7 +47,7 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
         {
             var horizontalMatches = new List<ITile>();
             // Right
-            for (var i = 1; i < matchingRequirement; i++)
+            for (var i = 1; x + i < board.BoardSize.x; i++)
             {
                 var currentX = x + i;
                 if (currentX >= board.BoardSize.x)
@@ -61,7 +61,7 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
             }
 
             // Left
-            for (var i = 1; i < matchingRequirement; i++)
+            for (var i = 1; x - i >= 0; i++)
             {
                 var currentX = x - i;
                 if (currentX < 0)
@@ -81,7 +81,7 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
         {
             var verticalMatches = new List<ITile>();
             // Upwards
-            for (var i = 1; i < matchingRequirement; i++)
+            for (var i = 1; y + i < board.BoardSize.y; i++)
             {
                 var currentY = y + i;
                 if (currentY >= board.BoardSize.y)
@@ -95,7 +95,7 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
             }
 
             // Downwards
-            for (var i = 1; i < matchingRequirement; i++)
+            for (var i = 1; y - i >= 0; i++)
             {
                 var currentY = y - i;
                 if (currentY < 0)

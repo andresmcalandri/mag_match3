@@ -7,6 +7,7 @@ namespace MAG_GameLibraries.Simulation.GameModes.TileMatching
     [CustomerFacing, Serializable]
     public enum TileMatchingHeuristicType
     {
-        Default
+        Default,
+        AnyContiguous
     }
 }

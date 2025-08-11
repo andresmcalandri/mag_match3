@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 1910639977, guid: 948da16694ba70042b33e4374642dc8c, type: 3}
   m_Name: TileMatchingGameConfig
   m_EditorClassIdentifier: 
-  TileMatchingHeuristic: 0
+  TileMatchingHeuristic: 1
   BoardConfig: {fileID: 11400000, guid: b7d0e6cafc482e548abbe933846ad032, type: 2}
-  MatchingNumber: 3
+  MatchingNumber: 2
   MatchOnRefill: 0
   NoMatchesOnInit: 0
