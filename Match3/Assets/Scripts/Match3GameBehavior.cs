@@ -92,5 +92,6 @@ public class Match3GameBehavior : MonoBehaviour
         }
 
         _boardView.UpdateTilePositionsPerRow(refillResult.CompactedTiles);
+        _boardView.RefillPerRow(refillResult.RefilledTiles);
     }
 }

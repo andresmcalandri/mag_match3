@@ -11,6 +11,7 @@ public class BoardView : MonoBehaviour
 
     private Action<Vector2Int> _onTileClicked;
     private bool _initialized = false;
+    private TileView _tilePrefab;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class BoardView : MonoBehaviour
 
         _initialized = true;
         _onTileClicked += onTileClicked;
+        _tilePrefab = tilePrefab;
         _activeTiles = new TileView[tiles.GetLength(0), tiles.GetLength(1)];
 
         for (int x = 0; x < tiles.GetLength(0); x++)
@@ -39,7 +41,7 @@ public class BoardView : MonoBehaviour
                 if (tile is null)
                     continue;
 
-                var newTile = GetOrCreateTile(tilePrefab);
+                var newTile = GetOrCreateTile();
                 newTile.Initialize(position, tile.Id, tile.Metadata);
                 _activeTiles[x, y] = newTile;
                 newTile.OnTileClicked += OnTileClicked;
@@ -80,6 +82,19 @@ public class BoardView : MonoBehaviour
         }
     }
 
+    internal void RefillPerRow(Stack<ITile>[] refilledTiles)
+    {
+        foreach (var refilledRow in refilledTiles)
+        {
+            while (refilledRow.TryPop(out var tile))
+            {
+                var newTile = GetOrCreateTile();
+                newTile.Initialize(tile.Position, tile.Id, tile.Metadata);
+                _activeTiles[tile.Position.x, tile.Position.y] = newTile;
+            }
+        }
+    }
+
     private void OnTileClicked(Vector2Int tilePosition)
     {
         _onTileClicked?.Invoke(tilePosition);
@@ -101,7 +116,7 @@ public class BoardView : MonoBehaviour
         }
     }
 
-    private TileView GetOrCreateTile(TileView tilePrefab)
+    private TileView GetOrCreateTile()
     {
         if (_unusedTiles.TryPop(out var tile))
         {
@@ -109,9 +124,7 @@ public class BoardView : MonoBehaviour
             return tile;
         }
 
-        var newTile = Instantiate(tilePrefab, transform);
+        var newTile = Instantiate(_tilePrefab, transform);
         return newTile;
     }
-
-    
 }
