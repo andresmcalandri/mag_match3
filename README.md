@@ -21,3 +21,7 @@ With a build pipeline to create a tar package through the build.sh script
 Easily added into unity with Package Manager
 
 <img width="994" height="246" alt="image" src="https://github.com/user-attachments/assets/8858909e-d378-4e23-a5f7-5f48e4eff75f" />
+
+Game libraries can easily be extended thanks to DI and factory implementations
+
+<img width="472" height="1007" alt="image" src="https://github.com/user-attachments/assets/e93656df-48cc-47f1-be55-3a74bea35d4b" />
